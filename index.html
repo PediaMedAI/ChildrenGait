@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- Primary Meta Tags -->
+  <!-- TODO: Replace with your paper title and author names -->
+  <meta name="title" content="Decoding Children's Gait Behavior">
+  <!-- TODO: Write a compelling 150-160 character description of your research -->
+  <meta name="description" content="We introduce a new problem domain for human action recognition: the fine-grained analysis of children's gait behaviors from standard RGB video. We specifically target the ambulatory patterns of children aged 3-17 years. Such behaviors arise naturally in the diagnosis and treatment of several critical developmental and neuromuscular disorders, such as cerebral palsy and hemiplegia. Despite their clinical value, current 3D sensor-based gait analysis systems are expensive, intrusive, and often impractical for young subjects. To address this, we introduce a new dataset comprising over 1,100 high-frame-rate (60 FPS) video sequences from 110 subjects, accompanied by synchronized, anonymized pose sequences. In each session, the child performs a 5-second walk-around task, capturing the gait cycle from multiple viewpoints. Crucially, we demonstrate that current state-of-the-art approaches, including gait foundation models and Multimodal Large Language Models (MLLMs), fail to effectively resolve these clinical nuances. We identify the key technical challenges in analyzing these erratic and subtle motor patterns and describe a unified end-to-end framework for decoding fundamental components of pediatric gait. Through comprehensive experimental results, we demonstrate the potential of this dataset to drive novel research questions and establish a rigorous baseline for automated child gait assessment.">
+  <!-- TODO: Add 5-10 relevant keywords for your research area -->
+  <meta name="keywords" content="Computer Vision, Children's Gait, Visual Gait Score, Gait Analysis, Foundation Model">
+  <!-- TODO: List all authors -->
+  <meta name="author" content="Yifan Shen, Boyi Li, Meihuan Huang, Yuanzhe Liu, Xu Cao, Jinyang Jin, Zhengyuan Li, Anglin Liu, Junho Kim, Jingyuan Zhu, Fangzhou Lan, Jianguo Cao, Jintai Chen, Ismini Lourentzou, James M. Rehg">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="English">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <!-- TODO: Replace with your institution or lab name -->
+  <meta property="og:site_name" content="University of Illinois Urbana-Champaign">
+  <!-- TODO: Same as paper title above -->
+  <meta property="og:title" content="Decoding Children's Gait Behavior">
+  <!-- TODO: Same as description above -->
+  <meta property="og:description" content="We introduce a new problem domain for human action recognition: the fine-grained analysis of children's gait behaviors from standard RGB video. We specifically target the ambulatory patterns of children aged 3-17 years. Such behaviors arise naturally in the diagnosis and treatment of several critical developmental and neuromuscular disorders, such as cerebral palsy and hemiplegia. Despite their clinical value, current 3D sensor-based gait analysis systems are expensive, intrusive, and often impractical for young subjects. To address this, we introduce a new dataset comprising over 1,100 high-frame-rate (60 FPS) video sequences from 110 subjects, accompanied by synchronized, anonymized pose sequences. In each session, the child performs a 5-second walk-around task, capturing the gait cycle from multiple viewpoints. Crucially, we demonstrate that current state-of-the-art approaches, including gait foundation models and Multimodal Large Language Models (MLLMs), fail to effectively resolve these clinical nuances. We identify the key technical challenges in analyzing these erratic and subtle motor patterns and describe a unified end-to-end framework for decoding fundamental components of pediatric gait. Through comprehensive experimental results, we demonstrate the potential of this dataset to drive novel research questions and establish a rigorous baseline for automated child gait assessment.">
+  <meta property="og:url" content="https://pediamedai.github.io/ChildrenGait/">
+  <!-- TODO: Create a 1200x630px preview image at static/images/social_preview.png -->
+  <meta property="og:image" content="https://pediamedai.github.io/ChildrenGait/static/images/social_preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Decoding Children's Gait Behavior - Research Preview">
+  <meta property="article:published_time" content="2026-05-28T00:00:00.000Z">
+  <meta property="article:author" content="Yifan Shen">
+  <meta property="article:section" content="Research">
+  <meta property="article:tag" content="Computer Vision">
+  <meta property="article:tag" content="Children's Gait">
+  <meta property="article:tag" content="Visual Gait Score">
+  <meta property="article:tag" content="Gait Analysis">
+  <meta property="article:tag" content="Foundation Model">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Decoding Children's Gait Behavior">
+  <!-- TODO: Same as description above -->
+  <meta name="twitter:description" content="We introduce a new problem domain for human action recognition: the fine-grained analysis of children's gait behaviors from standard RGB video. We specifically target the ambulatory patterns of children aged 3-17 years. Such behaviors arise naturally in the diagnosis and treatment of several critical developmental and neuromuscular disorders, such as cerebral palsy and hemiplegia. Despite their clinical value, current 3D sensor-based gait analysis systems are expensive, intrusive, and often impractical for young subjects. To address this, we introduce a new dataset comprising over 1,100 high-frame-rate (60 FPS) video sequences from 110 subjects, accompanied by synchronized, anonymized pose sequences. In each session, the child performs a 5-second walk-around task, capturing the gait cycle from multiple viewpoints. Crucially, we demonstrate that current state-of-the-art approaches, including gait foundation models and Multimodal Large Language Models (MLLMs), fail to effectively resolve these clinical nuances. We identify the key technical challenges in analyzing these erratic and subtle motor patterns and describe a unified end-to-end framework for decoding fundamental components of pediatric gait. Through comprehensive experimental results, we demonstrate the potential of this dataset to drive novel research questions and establish a rigorous baseline for automated child gait assessment.">
+  <!-- TODO: Same as social preview image above -->
+  <meta name="twitter:image" content="https://pediamedai.github.io/ChildrenGait/static/images/social_preview.png">
+  <meta name="twitter:image:alt" content="Decoding Children's Gait Behavior - Research Preview">
+
+  <!-- Academic/Research Specific -->
+  <meta name="citation_title" content="Decoding Children's Gait Behavior">
+  <meta name="citation_author" content="Shen, Yifan">
+  <meta name="citation_author" content="Li, Boyi">
+  <meta name="citation_author" content="Huang, Meihuan">
+  <meta name="citation_author" content="Liu, Yuanzhe">
+  <meta name="citation_author" content="Cao, Xu">
+  <meta name="citation_author" content="Jin, Jinyang">
+  <meta name="citation_author" content="Li, Zhengyuan">
+  <meta name="citation_author" content="Liu, Anglin">
+  <meta name="citation_author" content="Kim, Junho">
+  <meta name="citation_author" content="Zhu, Jingyuan">
+  <meta name="citation_author" content="Lan, Fangzhou">
+  <meta name="citation_author" content="Cao, Jianguo">
+  <meta name="citation_author" content="Chen, Jintai">
+  <meta name="citation_author" content="Lourentzou, Ismini">
+  <meta name="citation_author" content="Rehg, James M.">
+  <meta name="citation_publication_date" content="2026">
+  <meta name="citation_journal_title" content="arXiv preprint">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/ARXIV_PAPER_ID.pdf">
+  
+  <!-- Additional SEO -->
+  <meta name="theme-color" content="#2563eb">
+  <meta name="msapplication-TileColor" content="#2563eb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://ajax.googleapis.com">
+  <link rel="preconnect" href="https://documentcloud.adobe.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+
+  <!-- TODO: Replace with your paper title and authors -->
+  <title>Decoding Children's Gait Behavior</title>
+  
+  <!-- Favicon and App Icons -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%201%201'%3E%3C/svg%3E">
+  <link rel="shortcut icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%201%201'%3E%3C/svg%3E">
+  
+  <!-- Critical CSS - Load synchronously -->
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  
+  <!-- Non-critical CSS - Load asynchronously -->
+  <link rel="preload" href="static/css/bulma-carousel.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/bulma-slider.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/fontawesome.all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  
+  <!-- Fallback for browsers that don't support preload -->
+  <noscript>
+    <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  </noscript>
+  
+  <!-- Fonts - Optimized loading -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Defer non-critical JavaScript -->
+  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script defer src="static/js/bulma-carousel.min.js"></script>
+  <script defer src="static/js/bulma-slider.min.js"></script>
+  <script defer src="static/js/index.js"></script>
+  
+  <!-- Structured Data for Academic Papers -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "Decoding Children's Gait Behavior",
+    "description": "We introduce a new problem domain for human action recognition: the fine-grained analysis of children's gait behaviors from standard RGB video. We specifically target the ambulatory patterns of children aged 3-17 years. Such behaviors arise naturally in the diagnosis and treatment of several critical developmental and neuromuscular disorders, such as cerebral palsy and hemiplegia. Despite their clinical value, current 3D sensor-based gait analysis systems are expensive, intrusive, and often impractical for young subjects. To address this, we introduce a new dataset comprising over 1,100 high-frame-rate (60 FPS) video sequences from 110 subjects, accompanied by synchronized, anonymized pose sequences. In each session, the child performs a 5-second walk-around task, capturing the gait cycle from multiple viewpoints. Crucially, we demonstrate that current state-of-the-art approaches, including gait foundation models and Multimodal Large Language Models (MLLMs), fail to effectively resolve these clinical nuances. We identify the key technical challenges in analyzing these erratic and subtle motor patterns and describe a unified end-to-end framework for decoding fundamental components of pediatric gait. Through comprehensive experimental results, we demonstrate the potential of this dataset to drive novel research questions and establish a rigorous baseline for automated child gait assessment.",
+    "author": [
+      { "@type": "Person", "name": "Yifan Shen", "affiliation": { "@type": "Organization", "name": "University of Illinois Urbana-Champaign" } },
+      { "@type": "Person", "name": "Boyi Li", "affiliation": { "@type": "Organization", "name": "University of Illinois Urbana-Champaign" } },
+      { "@type": "Person", "name": "Meihuan Huang", "affiliation": { "@type": "Organization", "name": "PediaMed AI" } },
+      { "@type": "Person", "name": "Yuanzhe Liu", "affiliation": { "@type": "Organization", "name": "University of Illinois Urbana-Champaign" } },
+      { "@type": "Person", "name": "Xu Cao", "affiliation": { "@type": "Organization", "name": "University of Illinois Urbana-Champaign" } },
+      { "@type": "Person", "name": "Jinyang Jin", "affiliation": { "@type": "Organization", "name": "University of Illinois Urbana-Champaign" } },
+      { "@type": "Person", "name": "Zhengyuan Li", "affiliation": { "@type": "Organization", "name": "University of Illinois Urbana-Champaign" } },
+      { "@type": "Person", "name": "Anglin Liu", "affiliation": { "@type": "Organization", "name": "The Hong Kong University of Science and Technology (Guangzhou)" } },
+      { "@type": "Person", "name": "Junho Kim", "affiliation": { "@type": "Organization", "name": "University of Illinois Urbana-Champaign" } },
+      { "@type": "Person", "name": "Jingyuan Zhu", "affiliation": { "@type": "Organization", "name": "PediaMed AI" } },
+      { "@type": "Person", "name": "Fangzhou Lan", "affiliation": { "@type": "Organization", "name": "PediaMed AI" } },
+      { "@type": "Person", "name": "Jianguo Cao", "affiliation": { "@type": "Organization", "name": "PediaMed AI" } },
+      { "@type": "Person", "name": "Jintai Chen", "affiliation": { "@type": "Organization", "name": "The Hong Kong University of Science and Technology (Guangzhou)" } },
+      { "@type": "Person", "name": "Ismini Lourentzou", "affiliation": { "@type": "Organization", "name": "University of Illinois Urbana-Champaign" } },
+      { "@type": "Person", "name": "James M. Rehg", "affiliation": { "@type": "Organization", "name": "University of Illinois Urbana-Champaign" } }
+    ],
+    "datePublished": "2026",
+    "publisher": {
+      "@type": "Organization",
+      "name": "arXiv"
+    },
+    "url": "https://pediamedai.github.io/ChildrenGait/",
+    "image": "https://pediamedai.github.io/ChildrenGait/static/images/social_preview.png",
+    "keywords": ["Computer Vision", "Children's Gait", "Visual Gait Score", "Gait Analysis", "Foundation Model", "machine learning", "video understanding"],
+    "abstract": "We introduce a new problem domain for human action recognition: the fine-grained analysis of children's gait behaviors from standard RGB video, targeting the ambulatory patterns of children aged 3-17 years. We introduce the Children Gait Video (CGV) dataset of over 1,100 high-frame-rate (60 FPS) video sequences from 110 subjects with synchronized, anonymized pose sequences, show that state-of-the-art gait foundation models and MLLMs fail to resolve these clinical nuances, and present ChildGait-Video, a unified end-to-end framework for decoding fundamental components of pediatric gait.",
+    "isAccessibleForFree": true,
+    "license": "https://creativecommons.org/licenses/by-nc/4.0/",
+    "mainEntity": {
+      "@type": "WebPage",
+      "@id": "https://pediamedai.github.io/ChildrenGait/"
+    },
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Pediatric Gait Analysis"
+      },
+      {
+        "@type": "Thing",
+        "name": "Edinburgh Visual Gait Score"
+      }
+    ]
+  }
+  </script>
+  
+  <!-- Website/Organization Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "PediaMed AI",
+    "url": "https://pediamedai.com",
+    "logo": "https://pediamedai.github.io/ChildrenGait/static/images/favicon.ico",
+    "sameAs": [
+      "https://github.com/PediaMedAI"
+    ]
+  }
+  </script>
+</head>
+<body>
+
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-to-top" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <main id="main-content">
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <!-- TODO: Replace with your paper title -->
+            <h1 class="title is-1 publication-title">Decoding Children's Gait Behavior</h1>
+            <h2 class="title is-4 publication-venue" style="color:#1A4E8A; margin-top:0.5rem;">ECCV 2026</h2>
+            <div class="is-size-5 publication-authors">
+              <!-- Authors and affiliations follow the order in the paper -->
+              <span class="author-block">
+                <a href="https://shenyifans.github.io/" target="_blank">Yifan Shen</a><sup>1,2,*</sup>,</span>
+              <span class="author-block">
+                <a href="https://resurgamm.github.io/" target="_blank">Boyi Li</a><sup>1,*</sup>,</span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=sM_jWNkAAAAJ&hl=en" target="_blank">Meihuan Huang</a><sup>2,3,4,*</sup>,</span>
+              <span class="author-block">
+                <a href="https://www.linkedin.com/in/yuanzhe-liu-upenn-ds/" target="_blank">Yuanzhe Liu</a><sup>1,*</sup>,</span>
+              <span class="author-block">
+                <a href="https://www.irohxucao.com/" target="_blank">Xu Cao</a><sup>1,2,*,§</sup>,</span>
+              <span class="author-block">
+                <a href="https://www.linkedin.com/in/jinyang-jin-a07093254" target="_blank">Jinyang Jin</a><sup>1</sup>,</span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=HXN7DNoAAAAJ&hl=en" target="_blank">Zhengyuan Li</a><sup>1</sup>,</span>
+              <span class="author-block">
+                <a href="https://github.com/Joey-S-Liu" target="_blank">Anglin Liu</a><sup>5</sup>,</span>
+              <span class="author-block">
+                <a href="https://jhkim0911.github.io/" target="_blank">Junho Kim</a><sup>1</sup>,</span>
+              <span class="author-block">
+                <a href="https://www.linkedin.com/in/jingyuan-zhu-6a0ab3322/" target="_blank">Jingyuan Zhu</a><sup>2</sup>,</span>
+              <span class="author-block">
+                <a href="https://pediamedai.com/Cognition-MLLM/cogsense/#" target="_blank">Fangzhou Lan</a><sup>2</sup>,</span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=dPPOpHUAAAAJ&hl=en" target="_blank">Jianguo Cao</a><sup>2,3</sup>,</span>
+              <span class="author-block">
+                <a href="https://whatashot.github.io/" target="_blank">Jintai Chen</a><sup>5</sup>,</span>
+              <span class="author-block">
+                <a href="https://isminoula.github.io/" target="_blank">Ismini Lourentzou</a><sup>1</sup>,</span>
+              <span class="author-block">
+                <a href="https://rehg.org/" target="_blank">James M. Rehg</a><sup>1,†</sup></span>
+            </div>
+
+                  <div class="is-size-5 publication-authors">
+                    <span class="author-block">
+                      <sup>1</sup> University of Illinois Urbana-Champaign &nbsp;&nbsp;
+                      <sup>2</sup> PediaMed AI &nbsp;&nbsp;
+                      <sup>3</sup> Shenzhen Children's Hospital<br>
+                      <sup>4</sup> Hong Kong Polytechnic University &nbsp;&nbsp;
+                      <sup>5</sup> The Hong Kong University of Science and Technology (Guangzhou)<br>
+                    </span>
+                    <span class="eql-cntrb"><small><br><sup>*</sup>Equal Contribution, <sup>§</sup>Project Lead, <sup>†</sup>Corresponding Author</small></span>
+                  </div>
+
+                  <div class="column has-text-centered">
+                    <div class="publication-links">
+                         <!-- TODO: replace ARXIV_ID once the paper is on arXiv -->
+                      <span class="link-block">
+                        <a href="https://arxiv.org/pdf/ARXIV_ID.pdf" target="_blank"
+                        class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                          <i class="fas fa-file-pdf"></i>
+                        </span>
+                        <span>Paper</span>
+                      </a>
+                    </span>
+
+                  <!-- GitHub repository -->
+                  <span class="link-block">
+                    <a href="https://github.com/PediaMedAI/ChildrenGait" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+
+                <!-- TODO: replace ARXIV_ID once the paper is on arXiv -->
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/ARXIV_ID" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="has-text-centered">
+      <h2 class="title is-3">📝 Abstract</h2>
+    </div>
+    <!-- TODO: Replace with your paper abstract -->
+    <div class="abstract-card">
+      <p>
+        We introduce a new problem domain for human action recognition: the fine-grained analysis of children's gait behaviors from standard RGB video. We specifically target the ambulatory patterns of children aged 3–17 years. Such behaviors arise naturally in the diagnosis and treatment of several critical developmental and neuromuscular disorders, such as cerebral palsy and hemiplegia. Despite their clinical value, current 3D sensor-based gait analysis systems are expensive, intrusive, and often impractical for young subjects. To address this, we introduce a new dataset comprising over 1,100 high-frame-rate (60 FPS) video sequences from 110 subjects, accompanied by synchronized, anonymized pose sequences. In each session, the child performs a 5-second "walk-around" task, capturing the gait cycle from multiple viewpoints. Crucially, we demonstrate that current state-of-the-art approaches, including gait foundation models and Multimodal Large Language Models (MLLMs), fail to effectively resolve these clinical nuances. We identify the key technical challenges in analyzing these erratic and subtle motor patterns and describe a unified end-to-end framework for decoding fundamental components of pediatric gait. Through comprehensive experimental results, we demonstrate the potential of this dataset to drive novel research questions and establish a rigorous baseline for automated child gait assessment.
+      </p>
+    </div>
+  </div>
+</section>
+<!-- End paper abstract -->
+
+<section class="section" style="background-color:#dadada81">
+  <div class="container is-max-desktop">
+    <div class="has-text-centered">
+      <h2 class="title is-3">✅ Contributions</h2>
+    </div>
+    <div class="contrib-grid">
+      <div class="contrib-card">
+        <span class="contrib-num">1</span>
+        <h3>Children Gait Video (CGV) Dataset</h3>
+        <p>We introduce the Children Gait Video (CGV) dataset, the largest repository of multi-camera gait videos of children with developmental motor conditions, containing both clinically relevant assessments (EVGS and GVS) and rich frame-level annotations.</p>
+      </div>
+      <div class="contrib-card">
+        <span class="contrib-num">2</span>
+        <h3>Benchmarking SoTA VLMs</h3>
+        <p>We provide the first comprehensive assessment of the ability of SoTA open and closed VLMs to decode the subtle signs of gait abnormalities from video, and find that out-of-the-box models are ineffective for this task.</p>
+      </div>
+      <div class="contrib-card">
+        <span class="contrib-num">3</span>
+        <h3>ChildGait-Video</h3>
+        <p>We present ChildGait-Video, a novel video analysis method that is the current SoTA for the automated inference of EVGS and GVS scores from children's videos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============ CGV Dataset Section ============ -->
+<section class="section dataset-section" id="dataset">
+  <div class="container is-max-desktop">
+    <div class="has-text-centered">
+      <h2 class="title is-3">📊 The Children Gait Video (CGV) Dataset</h2>
+    </div>
+    <p class="dataset-lead">
+      CGV is the first open-sourced children gait video dataset. After obtaining IRB approval from
+      affiliated hospitals, we recorded children performing a short walking task and annotated each limb
+      with the 17 Edinburgh Visual Gait Score (EVGS) sub-items, along with rich frame-level masks,
+      bounding boxes and anatomical keypoints.
+    </p>
+
+    <div class="dataset-stats">
+      <div class="dataset-stat"><div class="stat-value">110</div><div class="stat-label">Pediatric Patients</div></div>
+      <div class="dataset-stat"><div class="stat-value">1,185</div><div class="stat-label">Videos</div></div>
+      <div class="dataset-stat"><div class="stat-value">339,236</div><div class="stat-label">Frames (2K)</div></div>
+      <div class="dataset-stat"><div class="stat-value">2 × 17</div><div class="stat-label">EVGS Items / Subject</div></div>
+      <div class="dataset-stat"><div class="stat-value">3–17</div><div class="stat-label">Age Range (yrs)</div></div>
+    </div>
+
+    <!-- Step 1: Data Collection -->
+    <div class="dataset-block">
+      <h3 class="dataset-subhead"><span class="step-dot">1</span> How the Data Was Collected</h3>
+      <p class="dataset-text">
+        Videos are recorded at a children's hospital in Asia using smartphone and action cameras positioned
+        simultaneously to capture two body planes. A <strong>primary camera</strong> sits at the terminus of an
+        8-meter walkway to record the <strong>coronal</strong> (frontal &amp; posterior) view, while a
+        <strong>secondary camera</strong> is oriented orthogonally toward the center of the walkway to capture the
+        <strong>sagittal</strong> (lateral) view. The lateral camera is placed far enough that its field of view
+        covers the middle four meters of the trial space — calibrated to guarantee 2–3 complete gait cycles per
+        subject. In each session the child performs a brief 3–5 second walk, captured at high frame rate.
+      </p>
+      <div class="collection-videos">
+        <div class="collection-video-card">
+          <video autoplay muted loop playsinline controls preload="auto">
+            <source src="static/videos/collection2.mp4" type="video/mp4">
+          </video>
+          <div class="vid-caption"><span class="view-tag sagittal">Sagittal</span> Lateral walking view</div>
+        </div>
+        <div class="collection-video-card">
+          <video autoplay muted loop playsinline controls preload="auto">
+            <source src="static/videos/collection1.mp4" type="video/mp4">
+          </video>
+          <div class="vid-caption"><span class="view-tag coronal">Coronal</span> Frontal / posterior walking view</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2: Annotation -->
+    <div class="dataset-block">
+      <h3 class="dataset-subhead"><span class="step-dot">2</span> How the Data Was Annotated</h3>
+      <p class="dataset-text">
+        Every video receives detailed per-frame and per-video annotations. We first use <strong>SAM&nbsp;3</strong>
+        to detect the subject's body bounding box and instance segmentation mask (manually selected by human
+        annotators), and <strong>Sapiens-2B</strong> to estimate the 2D anatomical keypoints (manually adjusted by
+        annotators). The clinical <strong>EVGS sub-items</strong> are then graded by an experienced pediatrician in
+        the author team and reviewed by a senior pediatrician with 40 years of clinical experience, while diagnosis
+        results are traced from each patient's follow-up records.
+      </p>
+      <figure class="distribution-figure">
+        <img src="static/images/annotation_example.png" alt="CGV annotation example: raw frames, bounding boxes with keypoints, and mask-guided pruning across a gait cycle" loading="lazy">
+        <figcaption>
+          <strong>Top:</strong> An example of a raw video of a single gait cycle. &nbsp;
+          <strong>Middle:</strong> We use SAM 3 to perform instance segmentation and Sapiens-2B to perform pose estimation to obtain bounding boxes, masks, and keypoints. Video then incorporates keypoints as token-level prompts. &nbsp;
+          <strong>Bottom:</strong> We use these annotations to conduct mask-guided pruning to ignore irrelevant background noise.
+        </figcaption>
+      </figure>
+      <ul class="annotation-points">
+        <li><strong>Bounding boxes</strong> &amp; <strong>segmentation masks</strong> from SAM&nbsp;3, human-verified.</li>
+        <li><strong>2D keypoints</strong> from Sapiens-2B, manually refined for the developing body.</li>
+        <li><strong>17 EVGS sub-items per limb</strong> graded by expert pediatricians.</li>
+        <li><strong>Irreversible de-identification</strong>: RetinaFace + SAM&nbsp;3 mosaic on all identifiable regions.</li>
+      </ul>
+    </div>
+
+    <!-- Step 3: Interactive 17 EVGS items -->
+    <div class="dataset-block">
+      <h3 class="dataset-subhead"><span class="step-dot">3</span> The 17 EVGS Scoring Items</h3>
+      <p class="dataset-text">
+        Each limb is assessed on 17 fine-grained gait parameters drawn from the Edinburgh Visual Gait Score,
+        spanning the foot, ankle, knee, hip, pelvis and trunk across both the sagittal and coronal planes.
+      </p>
+      <div class="evgs-intro">
+        <span class="evgs-legend"><span class="swatch sagittal"></span> Sagittal plane</span>
+        <span class="evgs-legend"><span class="swatch coronal"></span> Coronal plane</span>
+      </div>
+      <div class="evgs-figure" id="evgs-figure">
+        <svg class="evgs-lines" viewBox="0 0 100 100" preserveAspectRatio="none" id="evgs-lines"></svg>
+        <div class="evgs-image-wrap">
+          <img src="static/images/body_planes.png" alt="Child body planes: coronal and sagittal" loading="lazy">
+        </div>
+      </div>
+      <p class="evgs-hint">Hover (or tap) a box / marker to zoom in and read the detailed scoring criteria.</p>
+    </div>
+
+    <!-- Step 4: Data distribution -->
+    <div class="dataset-block">
+      <h3 class="dataset-subhead"><span class="step-dot">4</span> Label &amp; Demographic Distribution</h3>
+      <p class="dataset-text">
+        The standard EVGS protocol uses a three-point ordinal scale (0: normal, 1: moderate deviation,
+        2: marked deviation). Because severe deviations (score 2) are rare, the natural distribution of pediatric
+        gait pathologies is severely imbalanced. To build a robust computational benchmark, we
+        <strong>binarize</strong> the task by merging scores 1 and 2, framing each parameter as a binary
+        "typical" vs. "atypical" classification. The chart below shows the per-item label distribution across the
+        left (L) and right (R) limbs, separated into sagittal and coronal scoring items.
+      </p>
+      <p class="dataset-text">
+        Beyond the gait labels, the 110 participants span a clinically relevant developmental window and a
+        nearly balanced gender profile, providing sufficient diversity for training and evaluating visual gait
+        analysis models.
+      </p>
+      <figure class="distribution-figure">
+        <div class="subfig subfig-full">
+          <img src="static/images/label_distribution.png" alt="CGV dataset label distribution across left and right limbs" loading="lazy">
+          <span class="subfig-label">(a) Per-item label distribution (Label 0 vs. Label 1) for both limbs and body planes</span>
+        </div>
+        <div class="subfigures">
+          <div class="subfig">
+            <img src="static/images/age_distribution.png" alt="Age distribution of the CGV subjects with a fitted normal curve (mean 8.40, std 3.14)" loading="lazy">
+            <span class="subfig-label">(b) Age distribution (&mu;&nbsp;=&nbsp;8.40, &sigma;&nbsp;=&nbsp;3.14)</span>
+          </div>
+          <div class="subfig">
+            <img src="static/images/gender_distribution.png" alt="Gender distribution of the CGV subjects: 64 male, 46 female" loading="lazy">
+            <span class="subfig-label">(c) Gender distribution (64 male / 46 female)</span>
+          </div>
+        </div>
+        <figcaption>Label and demographic statistics of the CGV dataset: per-item label balance, age range 2.6&ndash;16.6 yrs (&mu;&nbsp;=&nbsp;8.40), and a 58.2% / 41.8% male-to-female split.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  // 17 EVGS items ordered 1-17 top-to-bottom, left-to-right:
+  //   left column = items 1-9, right column = items 10-17 (sorted by boy).
+  // plane: 'sagittal' | 'coronal'. col: 'left' | 'right'.
+  // bx/by = anatomical anchor on the body (% of figure); boy = vertical centre of the box (%).
+  // Regions: foot&ankle 1-7, knee 8-11, hip 12-13, pelvis 14-15, trunk 16-17.
+  var EVGS = [
+    {no:16, abbr:'TSG', name:'Peak Sagittal Trunk Position in Stance', plane:'sagittal', col:'right', bx:42, by:34, boy:81,
+      expl:'The trunk is normally erect throughout the stance and swing phases (sagittal view).',
+      scores:[['0','Normal upright (vertical to 5° fwd/bwd)'],['1','Mod. forward (6°–15°) or backward lean (>5°)'],['2','Marked forward lean (>15°)']]},
+    {no:14, abbr:'POB', name:'Pelvic Obliquity at Mid-Stance', plane:'coronal', col:'right', bx:43, by:49, boy:56,
+      expl:'The pelvis drops slightly on the opposite side during loading, becoming level by terminal stance. "Up/down" refers to the stance-side ASIS.',
+      scores:[['0','Normal obliquity (0°–5° up)'],['1','Mod. down (1°–10°) or up (6°–15°)'],['2','Marked down (>10°) or up (>15°)']]},
+    {no:12, abbr:'HEX', name:'Peak Hip Extension in Stance', plane:'sagittal', col:'right', bx:44, by:55, boy:31,
+      expl:'The hip normally extends in stance to between neutral and 20° of extension.',
+      scores:[['0','Normal (0°–20° extension)'],['1','Mod. flexion (1°–15°) or hyperext. (21°–35°)'],['2','Severe flexion (>15°) or hyperext. (>35°)']]},
+    {no:8, abbr:'KPA', name:'Knee Progression Angle in Mid-Stance', plane:'coronal', col:'left', bx:41, by:66, boy:83,
+      expl:'The knee normally points forward during gait; record where it points through most of stance (judged by knee-cap visibility).',
+      scores:[['0','Neutral, knee cap midline'],['1','Int./ext. rotation, all of knee cap visible'],['2','Int./ext. rotation, part of knee cap out of view']]},
+    {no:10, abbr:'KPS', name:'Knee Position in Terminal Swing', plane:'sagittal', col:'right', bx:41, by:70, boy:6,
+      expl:'The knee is normally in slight flexion immediately before heel strike.',
+      scores:[['0','Normal (5°–15° flexion)'],['1','Mod. flexion (16°–30°) or overextension'],['2','Severe flexion (>30°) or hyperext. (>10° ext.)']]},
+    {no:1, abbr:'IC', name:'Initial Contact in Stance', plane:'sagittal', col:'left', bx:41, by:91, boy:6,
+      expl:'The heel normally contacts first; simultaneous heel & toe contact is flat-foot contact.',
+      scores:[['0','Heel contact'],['1','Flat-foot contact'],['2','Toe contact']]},
+    {no:3, abbr:'SAD', name:'Max Ankle Dorsiflexion in Stance', plane:'sagittal', col:'left', bx:43, by:85, boy:28,
+      expl:'Maximum dorsiflexion angle between the hind-foot and the shaft of the tibia during stance.',
+      scores:[['0','Normal dorsiflexion (5°–25° df)'],['1','Increased (26°–40°) or reduced (10° pl–4° df)'],['2','Excessive (>40° df) or marked plantarflexion (>10° pl)']]},
+    {no:4, abbr:'HVV', name:'Hind-foot Varus/Valgus in Stance', plane:'coronal', col:'left', bx:44, by:90, boy:39,
+      expl:'In the coronal plane the normal hind-foot is neutral or in very slight valgus.',
+      scores:[['0','Neutral / slight valgus (0°–5°)'],['1','Mod. valgus (6°–15°) or mild varus (1°–10°)'],['2','Severe valgus (>15°) or varus (>10°)']]},
+
+    {no:17, abbr:'TLT', name:'Maximum Trunk Lateral Shift', plane:'coronal', col:'right', bx:44, by:41, boy:94,
+      expl:'The trunk normally displaces ~25 mm laterally toward the stance leg during stance (coronal view).',
+      scores:[['0','Normal'],['1','Moderate, or reduced (leans over swinging leg)'],['2','Marked lateral shift / lateral flexion']]},
+    {no:15, abbr:'PRT', name:'Pelvic Rotation at Mid-Stance', plane:'coronal', col:'right', bx:40, by:51, boy:69,
+      expl:'At mid-stance the pelvis should be near neutral rotation (5° retraction to 10° protraction of the stance leg).',
+      scores:[['0','Normal (5° retr.–10° protr.)'],['1','Mod. retraction (6°–15°) or protraction (11°–20°)'],['2','Marked retraction (>15°) or protraction (>20°)']]},
+    {no:13, abbr:'HFX', name:'Peak Hip Flexion during Swing', plane:'sagittal', col:'right', bx:40, by:53, boy:44,
+      expl:'Normal peak hip flexion during swing is between 25° and 45°.',
+      scores:[['0','Normal flexion (25°–45°)'],['1','Increased (46°–60°) or reduced (10°–24°)'],['2','Marked (>60°) or severely reduced (<10°)']]},
+    {no:9, abbr:'KEX', name:'Peak Knee Extension in Stance', plane:'sagittal', col:'left', bx:44, by:64, boy:94,
+      expl:'The knee approaches full extension in terminal stance; it may stay flexed or hyperextend in pathological gait.',
+      scores:[['0','Normal (0°–15° flexion)'],['1','Mod. flexion (16°–25°) or hyperext. (1°–10°)'],['2','Severe flexion (>25°) or hyperext. (<10°)']]},
+    {no:11, abbr:'KFX', name:'Peak Knee Flexion in Swing', plane:'sagittal', col:'right', bx:44, by:68, boy:19,
+      expl:'The normal peak knee flexion range in swing is 50° to 70°.',
+      scores:[['0','Normal (50°–70°)'],['1','Mod. increased (71°–85°) or reduced (35°–49°)'],['2','Severely increased (>85°) or reduced (<35°)']]},
+    {no:2, abbr:'HL', name:'Heel Lift in Stance', plane:'sagittal', col:'left', bx:40, by:93, boy:17,
+      expl:'Heel lift normally occurs between opposite-foot level and opposite-foot contact.',
+      scores:[['0','Normal'],['1','Early or delayed heel lift'],['2','No forefoot contact or no heel contact']]},
+    {no:7, abbr:'WAD', name:'Max Ankle Dorsiflexion in Swing', plane:'sagittal', col:'left', bx:41, by:83, boy:72,
+      expl:'The ankle is approximately neutral in swing; very slight plantarflexion (5°) is acceptable.',
+      scores:[['0','Normal (15° df – 5° pl)'],['1','Increased df (16°–30°) or mod. plantar (6°–20° pl)'],['2','Excessive (>30° df) or marked plantar (>20° pl)']]},
+    {no:6, abbr:'FCL', name:'Foot Clearance in Swing', plane:'sagittal', col:'left', bx:45, by:88, boy:61,
+      expl:'The whole foot, including the toe, should clear the floor and not contact it during swing.',
+      scores:[['0','Full clearance'],['1','High steps, or reduced clearance'],['2','None — continuous floor contact (or reduced + high stepping)']]},
+    {no:5, abbr:'FRT', name:'Foot Rotation in Stance', plane:'coronal', col:'left', bx:43, by:94, boy:50,
+      expl:'The normal foot is slightly externally rotated relative to the Knee Progression Angle (the direction the knee points).',
+      scores:[['0','Slightly more ext. than KPA (0°–20°)'],['1','Mod. ext. (21°–40°) or int. (1°–25°) vs. KPA'],['2','Marked ext. (>40°) or int. (>25°) vs. KPA']]}
+  ];
+
+  var fig = document.getElementById('evgs-figure');
+  var svg = document.getElementById('evgs-lines');
+  if (!fig || !svg) return;
+  var SVGNS = 'http://www.w3.org/2000/svg';
+
+  // Distribute the boxes in each column with strictly equal vertical spacing.
+  var COL_TOP = 7, COL_BOTTOM = 93;
+  ['left', 'right'].forEach(function (col) {
+    var items = EVGS.filter(function (i) { return i.col === col; })
+                    .sort(function (a, b) { return a.no - b.no; });
+    var n = items.length;
+    items.forEach(function (it, i) {
+      it.boy = n > 1 ? COL_TOP + i * (COL_BOTTOM - COL_TOP) / (n - 1)
+                     : (COL_TOP + COL_BOTTOM) / 2;
+    });
+  });
+
+  function setActive(item, on) {
+    item._box.classList.toggle('active', on);
+    item._dot.classList.toggle('active', on);
+    item._line.classList.toggle('active', on);
+  }
+
+  EVGS.forEach(function (it) {
+    var boxAnchorX = it.col === 'left' ? 22 : 78;
+
+    // connector line (geometry set in layout())
+    var line = document.createElementNS(SVGNS, 'line');
+    line.setAttribute('x1', boxAnchorX);
+    line.setAttribute('class', it.plane);
+    svg.appendChild(line);
+
+    // body dot (position set in layout())
+    var dot = document.createElement('div');
+    dot.className = 'evgs-dot ' + it.plane;
+    fig.appendChild(dot);
+
+    // box card
+    var box = document.createElement('div');
+    box.className = 'evgs-box ' + it.plane + ' ' + it.col;
+    box.style.top = it.boy + '%';
+    var scoresHtml = it.scores.map(function (s) {
+      return '<li><span class="score-chip s' + s[0] + '">' + s[0] + '</span><span>' + s[1] + '</span></li>';
+    }).join('');
+    box.innerHTML =
+      '<div class="box-head"><span class="box-no">' + it.no + '</span>' +
+      '<span class="box-abbr">' + it.abbr + '</span></div>' +
+      '<div class="box-name">' + it.name + '</div>' +
+      '<div class="box-detail"><div class="box-expl">' + it.expl + '</div>' +
+      '<ul class="box-scores">' + scoresHtml + '</ul></div>';
+    fig.appendChild(box);
+
+    it._box = box; it._dot = dot; it._line = line; it._anchorX = boxAnchorX;
+
+    var enter = function () { setActive(it, true); };
+    var leave = function () { setActive(it, false); };
+    box.addEventListener('mouseenter', enter);
+    box.addEventListener('mouseleave', leave);
+    dot.addEventListener('mouseenter', enter);
+    dot.addEventListener('mouseleave', leave);
+    box.addEventListener('click', function () {
+      var willOpen = !box.classList.contains('active');
+      EVGS.forEach(function (o) { setActive(o, false); });
+      setActive(it, willOpen);
+    });
+  });
+
+  // Map each marker (bx,by given as % of the IMAGE) onto the figure's
+  // coordinate space, so dots stay on the body even if the figure box is
+  // taller than the image (which lets us space the side boxes apart).
+  var img = fig.querySelector('.evgs-image-wrap img');
+  function layout() {
+    var figRect = fig.getBoundingClientRect();
+    var imgRect = img.getBoundingClientRect();
+    if (!figRect.width || !imgRect.width) return;
+    var offX = (imgRect.left - figRect.left) / figRect.width * 100;
+    var offY = (imgRect.top - figRect.top) / figRect.height * 100;
+    var sclX = imgRect.width / figRect.width * 100;
+    var sclY = imgRect.height / figRect.height * 100;
+    EVGS.forEach(function (it) {
+      var fx = offX + it.bx / 100 * sclX;
+      var fy = offY + it.by / 100 * sclY;
+      it._dot.style.left = fx + '%';
+      it._dot.style.top = fy + '%';
+      it._line.setAttribute('x2', fx);
+      it._line.setAttribute('y2', fy);
+      it._line.setAttribute('y1', it.boy);
+    });
+  }
+  layout();
+  if (img && !img.complete) img.addEventListener('load', layout);
+  window.addEventListener('resize', layout);
+  window.addEventListener('load', layout);
+})();
+</script>
+<!-- End CGV Dataset Section -->
+
+
+<!-- ============ Benchmark / Decoding Children's Gait Section ============ -->
+<section class="section dataset-section results-section" id="benchmark">
+  <div class="container is-max-desktop">
+    <div class="has-text-centered">
+      <h2 class="title is-3">🧪 Decoding Children's Gait</h2>
+    </div>
+    <p class="dataset-lead">
+      Can today's best models already decode children's gait? We benchmark three families of approaches on the
+      CGV test split &mdash; zero-shot MLLMs, a fine-tuned video VLM, and video &amp; gait analysis models &mdash;
+      reporting per-item and per-limb accuracy across all 34 bilateral EVGS items.
+      All values are percentages (%); toggle between the <strong>left</strong> and <strong>right</strong> limb and
+      scroll horizontally in any table below.
+    </p>
+
+    <div id="benchmark-blocks"></div>
+
+    <div class="bench-takeaway">
+      <h4>Why a purpose-built method is needed</h4>
+      <p>
+        Across every family, off-the-shelf and fine-tuned models plateau between roughly <strong>45% and 72%</strong>
+        accuracy &mdash; far below clinical reliability and, for most baselines, only marginally above the 50%
+        random-guess level. None reliably resolve the subtle, phase-specific deviations that define pediatric gait
+        pathology, motivating a dedicated, anatomy-aware approach.
+      </p>
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  var ITEMS = ['IC','HL','SAD','WAD','HVV','FRT','FCL','KPA','KEX','KPS','KFX','HEX','HFX','POB','PRT','TSG','TLT'];
+  var BENCH = [
+    {
+      no: 1,
+      title: 'Zero-shot Multimodal LLMs',
+      desc: 'We first probe whether state-of-the-art multimodal large language models can read pediatric gait out of the box. Six leading open and closed MLLMs receive 16 uniformly-sampled frames plus a structured EVGS prompt and predict each of the 17 binary scoring items per limb.',
+      finding: 'Every model lands between <strong>50% and 60%</strong> average accuracy &mdash; only marginally above the 50% random-guess baseline. They flag visually obvious deviations (e.g. Peak Hip Flexion, HFX) yet miss subtle ones (e.g. Max Ankle Dorsiflexion, SAD), revealing a bias toward semantic understanding over quantitative biomechanical reasoning.',
+      hasF1: false,
+      rows: [
+        {m:'Gemini 3 Pro',   L:[52,48,41,59,39,57,52,46,67,48,52,63,59,46,41,70,54], LA:53, R:[59,59,48,44,42,57,48,46,52,52,59,67,70,54,59,63,64], RA:55},
+        {m:'GPT-5.2',        L:[56,63,44,59,42,54,56,54,48,44,59,63,59,54,44,56,54], LA:53, R:[63,59,63,52,46,61,59,46,52,63,52,44,67,50,59,44,64], RA:56},
+        {m:'Qwen3-VL-235B',  L:[59,44,70,48,58,57,56,46,59,48,56,56,59,50,48,52,57], LA:54, R:[52,59,48,67,58,61,70,43,67,56,56,70,59,46,67,63,57], RA:59},
+        {m:'GLM4.6V',        L:[56,48,67,41,39,57,63,46,56,48,52,59,63,50,37,52,57], LA:52, R:[44,56,48,59,42,64,56,39,67,48,59,63,63,50,52,59,61], RA:55},
+        {m:'Qwen3.5-9B',     L:[48,44,63,44,35,57,59,39,52,44,56,56,59,54,41,48,54], LA:50, R:[52,48,48,59,42,57,56,46,59,41,59,56,56,46,59,59,54], RA:53},
+        {m:'InternVL3-8B',   L:[52,44,63,44,42,61,59,57,52,44,56,56,59,54,41,48,68], LA:53, R:[44,48,48,59,46,57,56,57,59,41,59,56,56,46,59,59,64], RA:54}
+      ]
+    },
+    {
+      no: 2,
+      title: 'Fine-tuned Video VLM',
+      desc: 'Does task-specific fine-tuning fix this? We fine-tune Qwen3-VL-4B on CGV (denoted Qwen3-VL-ChildGait) with a sequence-to-label objective and compare it against the zero-shot base model.',
+      finding: 'Fine-tuning brings essentially no gain &mdash; only <strong>+2% / +1%</strong> on the left / right limbs. Some items improve (Initial Contact, IC, +11.5%) while others regress (Hind-foot Varus/Valgus, HVV, &minus;1.5%), confirming that VLMs struggle with the fine-grained, phase-dependent dynamics of clinical gait.',
+      hasF1: false,
+      rows: [
+        {m:'Qwen3-VL-4B',         L:[52,44,63,44,42,54,59,50,52,44,56,56,59,46,41,48,54], LA:51, R:[44,48,48,59,42,46,56,36,59,41,59,56,56,54,59,59,54], RA:52},
+        {m:'Qwen3-VL-ChildGait',  L:[63,56,59,48,39,57,52,46,52,56,52,56,63,50,41,48,57], LA:53, R:[56,52,56,67,42,61,56,43,59,59,67,56,56,46,59,59,57], RA:53}
+      ]
+    },
+    {
+      no: 3,
+      title: 'Video &amp; Gait Analysis Models',
+      desc: 'Finally, we ask whether video-native and dedicated gait architectures fare better. We fine-tune two video models &mdash; the SOTA gait-recognition model BiggerGait and the masked video model VideoMAE v2 &mdash; directly on CGV, alongside a broad family of dedicated gait-recognition models (GaitSet, GaitPart, GaitGL, GaitBase, SwinGait, DeepGaitV2), each pre-trained on a large adult gait dataset (Gait3D, GREW, OU-MVLP, CCPG, SUSTech1K, Gait3D-Parsing) and then fine-tuned on CGV. Entries written as <code>Model-PretrainDataset</code> denote the pretraining dataset.',
+      finding: 'Dedicated gait-recognition models stay universally low (<strong>45%&ndash;56%</strong>), and even the SOTA BiggerGait stalls at <strong>54% / 53%</strong>, as identity-oriented objectives discard the localized kinematic cues clinical scoring needs and suffer a large adult&rarr;child domain gap. Only VideoMAE v2, learning continuous spatiotemporal pixel streams, breaks away at <strong>69% / 72%</strong> &mdash; yet its global average pooling still treats subject and background indiscriminately.',
+      hasF1: true,
+      rows: [
+        {m:'BiggerGait',                 L:[48,56,63,44,62,43,59,54,52,56,56,56,59,50,59,52,57], LA:54, LF1:0.53, R:[56,52,48,59,58,39,56,57,59,59,59,56,56,46,41,41,57], RA:53, RF1:0.51},
+        {m:'VideoMAE v2',                L:[72,70,70,63,67,68,81,80,60,60,63,67,74,68,80,67,68], LA:69, LF1:0.70, R:[67,71,61,81,60,68,85,72,78,81,63,67,74,72,70,85,68], RA:72, RF1:0.71},
+        {m:'GaitSet-Gait3D-Parsing',     L:[48,44,48,56,54,43,56,54,52,63,48,59,44,50,41,52,57], LA:51, R:[44,48,63,41,58,39,56,57,59,67,41,59,52,46,30,37,57], RA:50},
+        {m:'GaitPart-Gait3D-Parsing',    L:[37,44,37,26,30,61,59,50,52,33,63,70,52,50,56,48,43], LA:48, R:[52,56,52,44,42,43,56,54,41,37,56,67,48,46,41,59,43], RA:49},
+        {m:'GaitGL-Gait3D-Parsing',      L:[52,56,37,44,39,54,56,54,48,44,37,56,41,50,59,74,32], LA:49, R:[44,48,52,59,42,57,52,57,41,41,48,59,44,46,37,52,32], RA:48},
+        {m:'GaitBase-Gait3D',            L:[56,63,48,44,39,68,22,46,44,48,52,37,41,54,70,44,64], LA:50, R:[44,41,37,37,42,50,26,43,59,48,59,41,37,50,63,33,50], RA:45},
+        {m:'GaitBase-GREW',              L:[41,70,37,44,69,61,52,57,52,59,44,67,59,50,59,41,43], LA:53, R:[56,74,52,59,73,57,52,61,59,59,41,63,56,54,41,59,36], RA:56},
+        {m:'GaitBase-OUMVLP',            L:[56,70,37,37,54,50,44,54,52,59,44,41,41,46,26,52,57], LA:48, R:[67,70,63,56,42,54,52,57,56,44,41,37,59,50,52,41,57], RA:53},
+        {m:'SwinGait-CCPG',              L:[52,56,30,56,62,57,67,50,48,44,41,44,41,57,59,40,39], LA:50, R:[44,52,56,41,58,68,63,46,48,41,37,41,44,61,41,30,39], RA:48},
+        {m:'SwinGait-Gait3D',            L:[63,44,52,52,39,43,59,50,52,41,44,85,60,57,59,59,57], LA:54, R:[67,44,67,44,42,39,67,54,44,52,59,85,56,61,56,52,57], RA:56},
+        {m:'SwinGait-SUSTech1K',         L:[63,44,48,44,19,43,59,50,59,56,59,59,52,46,67,48,57], LA:52, R:[78,59,67,63,23,40,56,46,59,59,37,59,52,50,52,56,57], RA:54},
+        {m:'DeepGaitV2-CCPG',            L:[30,52,63,56,62,54,59,43,74,37,44,44,41,61,30,44,54], LA:50, R:[22,70,48,48,65,50,67,46,56,30,44,44,44,57,37,52,54], RA:49},
+        {m:'DeepGaitV2-Gait3D',          L:[48,67,37,44,62,57,70,32,22,56,44,48,41,50,59,48,61], LA:50, R:[41,74,52,59,58,61,70,29,48,33,41,44,44,46,41,59,46], RA:50},
+        {m:'DeepGaitV2-GREW',            L:[52,41,41,56,62,57,59,54,52,41,44,56,41,50,33,48,57], LA:50, R:[44,48,52,41,58,61,56,57,48,48,41,56,44,54,48,59,57], RA:51},
+        {m:'DeepGaitV2-OUMVLP',          L:[48,41,48,52,62,64,48,54,48,44,37,44,59,54,37,52,43], LA:49, R:[56,52,41,41,58,54,52,57,41,41,52,44,56,57,59,41,43], RA:50},
+        {m:'DeepGaitV2-SUSTech1K',       L:[52,44,37,48,35,43,59,50,48,56,56,56,59,50,59,59,57], LA:51, R:[44,56,52,59,46,39,56,46,59,59,63,56,56,54,41,56,57], RA:53}
+      ]
+    }
+  ];
+
+  var root = document.getElementById('benchmark-blocks');
+  if (!root) return;
+
+  function valClass(v) {
+    if (v >= 70) return 'v-hi';
+    if (v >= 60) return 'v-mid';
+    if (v < 50)  return 'v-lo';
+    return '';
+  }
+
+  function buildTable(fam, limb) {
+    var rows = fam.rows;
+    var best = -1;
+    rows.forEach(function (r) { var a = limb === 'L' ? r.LA : r.RA; if (a > best) best = a; });
+
+    var html = '<table class="results-table"><thead><tr><th class="th-method">Method</th>';
+    ITEMS.forEach(function (it) { html += '<th>' + limb + '-' + it + '</th>'; });
+    html += '<th class="th-avg">' + limb + '-AVG</th>';
+    if (fam.hasF1) html += '<th class="th-avg">' + limb + '-F1</th>';
+    html += '</tr></thead><tbody>';
+
+    rows.forEach(function (r) {
+      var vals = limb === 'L' ? r.L : r.R;
+      var avg  = limb === 'L' ? r.LA : r.RA;
+      var f1   = limb === 'L' ? r.LF1 : r.RF1;
+      html += '<tr><td class="td-method">' + r.m + '</td>';
+      vals.forEach(function (v) { html += '<td class="' + valClass(v) + '">' + v + '</td>'; });
+      html += '<td class="td-avg' + (avg === best ? ' best' : '') + '">' + avg + '</td>';
+      if (fam.hasF1) html += '<td class="td-avg">' + (f1 != null ? f1.toFixed(2) : '\u2013') + '</td>';
+      html += '</tr>';
+    });
+    html += '</tbody></table>';
+    return html;
+  }
+
+  BENCH.forEach(function (fam) {
+    var block = document.createElement('div');
+    block.className = 'dataset-block bench-block';
+    block.innerHTML =
+      '<h3 class="dataset-subhead"><span class="step-dot">' + fam.no + '</span>' + fam.title + '</h3>' +
+      '<p class="dataset-text">' + fam.desc + '</p>' +
+      '<div class="bench-finding">' + fam.finding + '</div>' +
+      '<div class="limb-toggle">' +
+        '<button class="limb-btn active" data-limb="L">Left limb</button>' +
+        '<button class="limb-btn" data-limb="R">Right limb</button>' +
+      '</div>' +
+      '<div class="results-table-wrap"></div>';
+    root.appendChild(block);
+
+    var wrap = block.querySelector('.results-table-wrap');
+    wrap.innerHTML = buildTable(fam, 'L');
+
+    var btns = block.querySelectorAll('.limb-btn');
+    btns.forEach(function (b) {
+      b.addEventListener('click', function () {
+        btns.forEach(function (x) { x.classList.remove('active'); });
+        b.classList.add('active');
+        wrap.innerHTML = buildTable(fam, b.getAttribute('data-limb'));
+      });
+    });
+  });
+})();
+</script>
+<!-- End Benchmark Section -->
+
+
+<!-- ============ Our Method: ChildGait-Video ============ -->
+<section class="section dataset-section method-section" id="method">
+  <div class="container is-max-desktop">
+    <div class="has-text-centered">
+      <h2 class="title is-3">🚀 Our Method: ChildGait-Video</h2>
+    </div>
+    <p class="dataset-lead">
+      Direct fine-tuning is bounded by a model's susceptibility to clinical background noise and its lack of gait
+      awareness. To fully unleash the video foundation model for pediatric gait, we propose a two-stage adaptation
+      paradigm, <strong>ChildGait-Video</strong>, that injects explicit anatomical priors through
+      <em>token-level kinematic prompting</em> and constrains attention through <em>mask-guided patch pruning</em>.
+    </p>
+
+    <!-- Step 1: Framework -->
+    <div class="dataset-block">
+      <h3 class="dataset-subhead"><span class="step-dot">1</span> The ChildGait-Video Framework</h3>
+      <p class="dataset-text">
+        ChildGait-Video reuses the same vision encoder as <strong>VideoMAE&nbsp;v2</strong>, followed by an MLP head
+        that predicts the EVGS score. We first pre-train on <strong>Kinetics-710</strong> to acquire generic human
+        motion recognition, then supervise fine-tune on the CGV dataset with the two components below, so the model
+        learns subtle gait anomalies while focusing on the gait transition.
+      </p>
+      <figure class="distribution-figure">
+        <img src="static/images/framework.png" alt="ChildGait-Video framework: multi-modal input, mask-guided patch pruning, and ViT encoder with MLP head predicting the EVGS score" loading="lazy">
+        <figcaption>
+          <strong>The ChildGait-Video paradigm.</strong> Skeletal keypoints are rendered onto the RGB frame as
+          token-level kinematic prompts; mask-guided patch pruning keeps only foreground patches before the ViT
+          encoder and MLP head predict the EVGS score.
+        </figcaption>
+      </figure>
+      <div class="contrib-grid method-grid">
+        <div class="contrib-card">
+          <span class="contrib-num"><i class="fas fa-person-walking"></i></span>
+          <h3>Token-Level Kinematic Prompting</h3>
+          <p>We render the extracted joint coordinates and their connectivity graph directly onto each RGB frame.
+            After ViT patchification, the patches covering the rendered skeleton encode both local anatomical topology
+            and appearance, acting as kinematic prompts mixed with standard visual tokens &mdash; bridging the model's
+            missing anatomical priors of the developing body.</p>
+        </div>
+        <div class="contrib-card">
+          <span class="contrib-num"><i class="fas fa-object-group"></i></span>
+          <h3>Mask-Guided Patch Pruning</h3>
+          <p>Gait clips are cluttered with walking aids, parallel bars and attending therapists. Using binary instance
+            segmentation masks, we deterministically keep a patch only if it holds enough foreground pixels. This drops
+            the vast majority of background tokens, forcing the transformer's self-attention onto the subject's gait
+            while substantially cutting fine-tuning cost.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2: Results -->
+    <div class="dataset-block">
+      <h3 class="dataset-subhead"><span class="step-dot">2</span> State-of-the-Art Results</h3>
+      <p class="dataset-text">
+        We compare fine-tuned BiggerGait, fine-tuned VideoMAE&nbsp;v2 and ChildGait-Video on the CGV test split.
+        Toggle between the <strong>left</strong> and <strong>right</strong> limb; all values are percentages (%),
+        with L/R-F1 the average F1-score across all items.
+      </p>
+      <div class="bench-finding">
+        ChildGait-Video achieves <strong>SOTA across all baselines</strong>, reaching a <strong>70%&ndash;93%</strong>
+        accuracy range over all 34 scoring items &mdash; average gains of <strong>+15% / +12%</strong> on the left /
+        right limbs over fine-tuned VideoMAE&nbsp;v2, with a high average <strong>F1 of 0.83</strong>. The boost stems
+        from anatomically-grounded prompting and background-suppressed attention.
+      </div>
+      <div class="limb-toggle" id="ours-toggle">
+        <button class="limb-btn active" data-limb="L">Left limb</button>
+        <button class="limb-btn" data-limb="R">Right limb</button>
+      </div>
+      <div class="results-table-wrap" id="ours-table-wrap"></div>
+    </div>
+
+    <!-- Step 3: Confusion matrices -->
+    <div class="dataset-block">
+      <h3 class="dataset-subhead"><span class="step-dot">3</span> Confusion Matrices</h3>
+      <p class="dataset-text">
+        We visualize confusion matrices across scoring items spanning both the sagittal and coronal views of the
+        EVGS. The high concentration of predictions along the main diagonal and the low off-diagonal error rate
+        indicate that ChildGait-Video maintains high sensitivity and effectively regularizes self-attention to
+        focus on gait kinematics.
+      </p>
+      <figure class="distribution-figure">
+        <img src="static/images/confusion_matrices.png" alt="Confusion matrices of ChildGait-Video across EVGS scoring items, showing strong on-diagonal concentration" loading="lazy">
+        <figcaption>
+          Confusion matrices of ChildGait-Video on EVGS scoring classification (typical vs. atypical) across
+          left/right limb items in both body planes.
+        </figcaption>
+      </figure>
+    </div>
+
+    <!-- Step 4: Ablation on frames -->
+    <div class="dataset-block">
+      <h3 class="dataset-subhead"><span class="step-dot">4</span> Ablation: Number of Input Frames</h3>
+      <p class="dataset-text">
+        The temporal resolution of the input sequence determines how well the model captures the dynamic evolution of
+        gait pathologies. We vary the number of sampled frames <em>T</em> &isin; {8, 16, 32} at a constant 30&nbsp;FPS
+        and evaluate on item <strong>L/R-IC</strong>; all variants use the proposed mask-guided pruning and
+        token-level kinematic prompting.
+      </p>
+      <div class="bench-finding">
+        Going from 8 &rarr; 16 frames yields a large <strong>+12.9%</strong> accuracy jump &mdash; 8 frames cannot
+        cover a meaningful kinematic transition, while 16 frames capture the critical sub-phases of the gait cycle.
+        Pushing to 32 frames adds only <strong>+3.7%</strong> while computational complexity grows quadratically, so
+        we adopt <strong>T&nbsp;=&nbsp;16</strong> as the default.
+      </div>
+      <div class="ablation-wrap">
+        <table class="ablation-table">
+          <thead>
+            <tr><th>Frames (T)</th><th>Temporal Span (s)</th><th>Accuracy (%)</th><th>F1-Score</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>8</td><td>0.26</td><td>74.1</td><td>0.73</td></tr>
+            <tr class="adopted"><td>16 <span class="cfg-badge">Default</span></td><td>0.53</td><td>87.0</td><td>0.89</td></tr>
+            <tr><td>32</td><td>1.06</td><td>90.7</td><td>0.92</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="ablation-caption">
+        Ablation on the number of input frames, evaluated on item L/R-IC (Accuracy and F1-Score).
+      </p>
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  var ITEMS = ['IC','HL','SAD','WAD','HVV','FRT','FCL','KPA','KEX','KPS','KFX','HEX','HFX','POB','PRT','TSG','TLT'];
+  var ROWS = [
+    {m:'BiggerGait',       L:[48,56,63,44,62,43,59,54,52,56,56,56,59,50,59,52,57], LA:54, LF1:0.53, R:[56,52,48,59,58,39,56,57,59,59,59,56,56,46,41,41,57], RA:53, RF1:0.51},
+    {m:'VideoMAE v2',      L:[72,70,70,63,67,68,81,80,60,60,63,67,74,68,80,67,68], LA:69, LF1:0.70, R:[67,71,61,81,60,68,85,72,78,81,63,67,74,72,70,85,68], RA:72, RF1:0.71},
+    {m:'ChildGait-Video', ours:true, L:[85,92,81,70,88,92,89,84,74,82,78,85,93,89,89,85,76], LA:84, LF1:0.83, R:[89,85,74,85,83,88,93,80,92,86,81,81,89,80,74,92,76], RA:84, RF1:0.83}
+  ];
+
+  var wrap = document.getElementById('ours-table-wrap');
+  if (!wrap) return;
+
+  function valClass(v) {
+    if (v >= 70) return 'v-hi';
+    if (v >= 60) return 'v-mid';
+    if (v < 50)  return 'v-lo';
+    return '';
+  }
+
+  function build(limb) {
+    var best = -1;
+    ROWS.forEach(function (r) { var a = limb === 'L' ? r.LA : r.RA; if (a > best) best = a; });
+
+    var h = '<table class="results-table"><thead><tr><th class="th-method">Method</th>';
+    ITEMS.forEach(function (it) { h += '<th>' + limb + '-' + it + '</th>'; });
+    h += '<th class="th-avg">' + limb + '-AVG</th><th class="th-avg">' + limb + '-F1</th></tr></thead><tbody>';
+
+    ROWS.forEach(function (r) {
+      var vals = limb === 'L' ? r.L : r.R;
+      var avg  = limb === 'L' ? r.LA : r.RA;
+      var f1   = limb === 'L' ? r.LF1 : r.RF1;
+      h += '<tr' + (r.ours ? ' class="ours"' : '') + '><td class="td-method">' + r.m +
+           (r.ours ? '<span class="ours-badge">Ours</span>' : '') + '</td>';
+      vals.forEach(function (v) { h += '<td class="' + valClass(v) + '">' + v + '</td>'; });
+      h += '<td class="td-avg' + (avg === best ? ' best' : '') + '">' + avg + '</td>';
+      h += '<td class="td-avg">' + f1.toFixed(2) + '</td></tr>';
+    });
+    h += '</tbody></table>';
+    return h;
+  }
+
+  wrap.innerHTML = build('L');
+
+  var btns = document.querySelectorAll('#ours-toggle .limb-btn');
+  btns.forEach(function (b) {
+    b.addEventListener('click', function () {
+      btns.forEach(function (x) { x.classList.remove('active'); });
+      b.classList.add('active');
+      wrap.innerHTML = build(b.getAttribute('data-limb'));
+    });
+  });
+})();
+</script>
+<!-- End Our Method Section -->
+
+
+<!-- ============ CVPR 2026 Workshop: CV4CHL ============ -->
+<section class="section dataset-section" id="cv4chl">
+  <div class="container is-max-desktop">
+    <div class="has-text-centered">
+      <h2 class="title is-3">🏆 CVPR 2026 Workshop: Computer Vision for Children (CV4CHL)</h2>
+    </div>
+    <p class="dataset-lead">
+      This work is part of our broader effort to advance computer vision for pediatric health. At
+      <strong>CVPR&nbsp;2026</strong>, we organized the
+      <strong>Workshop on Computer Vision for Children (CV4CHL)</strong>, which hosted
+      <strong>The 1st AI Children Challenge</strong> &mdash; bringing the community together to build and
+      benchmark vision systems for children-centered tasks.
+    </p>
+
+    <div class="column has-text-centered">
+      <div class="publication-links">
+        <span class="link-block">
+          <a href="https://pediamedai.com/cv4chl/" target="_blank"
+             class="external-link button is-normal is-rounded is-dark">
+            <span class="icon"><i class="fas fa-globe"></i></span>
+            <span>Workshop Page</span>
+          </a>
+        </span>
+        <span class="link-block">
+          <a href="https://openaccess.thecvf.com/content/CVPR2026W/CV4CHL/papers/Li_The_1st_AI_Children_Challenge_CVPRW_2026_paper.pdf"
+             target="_blank"
+             class="external-link button is-normal is-rounded is-dark">
+            <span class="icon"><i class="fas fa-file-pdf"></i></span>
+            <span>Challenge Report</span>
+          </a>
+        </span>
+      </div>
+    </div>
+
+  </div>
+</section>
+<!-- End CVPR 2026 Workshop Section -->
+
+
+<!--BibTex citation -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <div class="bibtex-header">
+        <h2 class="title">BibTeX</h2>
+        <button class="copy-bibtex-btn" onclick="copyBibTeX()" title="Copy BibTeX to clipboard">
+          <i class="fas fa-copy"></i>
+          <span class="copy-text">Copy</span>
+        </button>
+      </div>
+      <pre id="bibtex-code"><code>@article{shen2026decoding,
+    title     = {Decoding Children's Gait Behavior},
+    author    = {Shen, Yifan and Li, Boyi and Huang, Meihuan and Liu, Yuanzhe and Cao, Xu and Jin, Jinyang and Li, Zhengyuan and Liu, Anglin and Kim, Junho and Zhu, Jingyuan and Lan, Fangzhou and Cao, Jianguo and Chen, Jintai and Lourentzou, Ismini and Rehg, James M.},
+    journal   = {arXiv preprint arXiv:XXXX.XXXXX},
+    year      = {2026}
+}
+
+@inproceedings{li20261st,
+    title     = {The 1st AI Children Challenge},
+    author    = {Li, Boyi and Shen, Yifan and Yang, Houze and Cao, Xu and Yun, Guojun and Gao, Li and Chen, Turong and Xu, Long and Cao, Jianguo and Huang, Meihuan},
+    booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+    pages     = {5564--5570},
+    year      = {2026}
+}</code></pre></div>
+</section>
+<!--End BibTex citation -->
+
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Statcounter tracking code -->
+  
+<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+    <!-- End of Statcounter Code -->
+
+  </body>
+  </html>
