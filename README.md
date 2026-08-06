@@ -88,11 +88,14 @@ This work is part of our broader effort to advance computer vision for pediatric
 If you find this work useful, please cite our paper and the CV4CHL challenge:
 
 ```bibtex
-@article{shen2026decoding,
-    title   = {Decoding Children's Gait Behavior},
-    author  = {Shen, Yifan and Li, Boyi and Huang, Meihuan and Liu, Yuanzhe and Cao, Xu and Jin, Jinyang and Li, Zhengyuan and Liu, Anglin and Kim, Junho and Zhu, Jingyuan and Lan, Fangzhou and Cao, Jianguo and Chen, Jintai and Lourentzou, Ismini and Rehg, James M.},
-    journal = {arXiv preprint arXiv:2608.00371},
-    year    = {2026}
+@misc{shen2026decodingchildrensgaitbehavior,
+      title={Decoding Children's Gait Behavior}, 
+      author={Yifan Shen and Boyi Li and Meihuan Huang and Yuanzhe Liu and Xu Cao and Jinyang Jin and Zhengyuan Li and Anglin Liu and Junho Kim and Jingyuan Zhu and Lan Fangzhou and Jianguo Cao and Jintai Chen and Ismini Lourentzou and James Matthew Rehg},
+      year={2026},
+      eprint={2608.00371},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2608.00371}, 
 }
 
 @inproceedings{li20261st,
