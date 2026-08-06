@@ -8,7 +8,7 @@
 
 [![Conference](https://img.shields.io/badge/ECCV-2026-1A4E8A)](https://pediamedai.github.io/ChildrenGait/)
 [![Project Page](https://img.shields.io/badge/Project-Page-1A4E8A)](https://pediamedai.github.io/ChildrenGait/)
-[![arXiv](https://img.shields.io/badge/arXiv-coming%20soon-CB2F10)](https://arxiv.org/abs/ARXIV_ID)
+[![arXiv](http://img.shields.io/badge/cs.CV-arXiv%3A2608.00371-B31B1B.svg)](https://arxiv.org/abs/2608.00371)
 [![Dataset](https://img.shields.io/badge/Hugging%20Face-Dataset-FFD21E?logo=huggingface&logoColor=000)](https://huggingface.co/datasets/PediaMedAI/ChildrenGait)
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/Data%20License-CC%20BY--NC%204.0-lightgrey)](https://creativecommons.org/licenses/by-nc/4.0/)
 
