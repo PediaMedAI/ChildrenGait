@@ -91,7 +91,7 @@ If you find this work useful, please cite our paper and the CV4CHL challenge:
 @article{shen2026decoding,
     title   = {Decoding Children's Gait Behavior},
     author  = {Shen, Yifan and Li, Boyi and Huang, Meihuan and Liu, Yuanzhe and Cao, Xu and Jin, Jinyang and Li, Zhengyuan and Liu, Anglin and Kim, Junho and Zhu, Jingyuan and Lan, Fangzhou and Cao, Jianguo and Chen, Jintai and Lourentzou, Ismini and Rehg, James M.},
-    journal = {arXiv preprint arXiv:XXXX.XXXXX},
+    journal = {arXiv preprint arXiv:2608.00371},
     year    = {2026}
 }
 
